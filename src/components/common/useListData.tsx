@@ -1,32 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Item, Items, ListResponse } from '@/interface/list';
-
-interface ListColumn {
-  key: string;
-  title: string;
-  thumbnails: string;
-  videoOwnerChannelTitle: string;
-}
-
-function shuffle(array: any) {
-  let currentIndex = array.length,
-    randomIndex;
-
-  // While there remain elements to shuffle.
-  while (currentIndex != 0) {
-    // Pick a remaining element.
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
-  }
-
-  return array;
-}
+import { Item, Items, ListColumn, ListResponse } from '@/interface/list';
+import { shuffle } from '@/utils/shuffle';
+import { useLocalStorage } from 'usehooks-ts';
+import { checkRegionRestriction } from '@/utils/validVideos';
 
 export default function useListData(
   playlistsRaw: ListResponse[] | ListResponse
@@ -36,6 +12,7 @@ export default function useListData(
   const [randomPlaylist, setRandomPlaylist] = useState<ListColumn[]>([]);
   const [randomPlaylistKey, setRandomPlaylistKey] = useState('');
 
+  console.log('playlistsRaw change', playlistsRaw);
   useEffect(() => {
     let allLists;
     if (Array.isArray(playlistsRaw)) {
@@ -45,23 +22,38 @@ export default function useListData(
       allLists = [playlistsRaw.items];
     }
     const allItems = allLists.map((list: any) => list.items).flat();
-    const validItems = allItems.filter(
-      (item: Item) => item.snippet.title !== 'Private video'
+    const videoIds = allItems.map(
+      (item: Item) => item.snippet.resourceId.videoId
     );
-    const listData: ListColumn[] = validItems.map((item: Item) => {
-      return {
-        key: item.id,
-        title: item.snippet.title,
-        thumbnails: item.snippet.thumbnails?.medium.url || '',
-        videoOwnerChannelTitle: item.snippet.videoOwnerChannelTitle,
-        videoId: item.snippet.resourceId.videoId,
-      };
-    });
-    const randomListData: ListColumn[] = shuffle([...listData]);
-    setRandomPlaylist(randomListData);
-    setPlaylist(listData);
-    setPlaylistKey(listData.map((e) => e.key).toString());
-    setRandomPlaylistKey(randomListData.map((e) => e.key).toString());
+    async function validItems() {
+      const isRestricted = await checkRegionRestriction(videoIds);
+      return allItems.filter((item: Item, index: number) => {
+        return (
+          item.snippet.title !== 'Private video' &&
+          isRestricted &&
+          !isRestricted[index]
+        );
+      });
+    }
+
+    async function set() {
+      const validatedItems = await validItems();
+      const listData: ListColumn[] = validatedItems.map((item: Item) => {
+        return {
+          key: item.id,
+          title: item.snippet.title,
+          thumbnails: item.snippet.thumbnails?.medium.url || '',
+          videoOwnerChannelTitle: item.snippet.videoOwnerChannelTitle,
+          videoId: item.snippet.resourceId.videoId,
+        };
+      });
+      const randomListData: ListColumn[] = shuffle([...listData]);
+      setRandomPlaylist(randomListData);
+      setPlaylist(listData);
+      setPlaylistKey(listData.map((e) => e.key).toString());
+      setRandomPlaylistKey(randomListData.map((e) => e.key).toString());
+    }
+    set();
   }, [playlistsRaw]);
 
   return { playlist, playlistKey, randomPlaylist, randomPlaylistKey };

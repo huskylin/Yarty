@@ -23,11 +23,12 @@ var react_1 = require("react");
 exports.partyListInitialState = {
     raw: [],
     playlist: [],
-    playlistKey: ''
+    playlistKey: '',
+    playingList: []
 };
 exports.partyListContext = react_1.createContext(exports.partyListInitialState);
-function onlyUnique(value, index, array) {
-    return array.indexOf(value) === index;
+function onlyUnique(item, index, array) {
+    return array.findIndex(function (e) { return e.key === item.key; }) === index;
 }
 function reducer(state, action) {
     switch (action.type) {

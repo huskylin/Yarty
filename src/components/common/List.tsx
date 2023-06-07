@@ -12,11 +12,11 @@ import { CSS } from '@dnd-kit/utilities';
 import { Table, Typography } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
-import { DataType } from '@/interface/list';
+import { ListColumn } from '@/interface/list';
 
 const { Title } = Typography;
 
-const columns: ColumnsType<DataType> = [
+const columns: ColumnsType<ListColumn> = [
   {
     key: 'sort',
     width: 20,

@@ -68,7 +68,7 @@ var Row = function (_a) {
     })));
 };
 var List = function (_a) {
-    var data = _a.data;
+    var data = _a.data, from = _a.from;
     var _b = react_1.useState(data), dataSource = _b[0], setDataSource = _b[1];
     var onDragEnd = function (_a) {
         var active = _a.active, over = _a.over;

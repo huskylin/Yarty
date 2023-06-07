@@ -5,16 +5,18 @@ interface PartyListContext {
     raw: ListResponse[];
     playlist: any[];
     playlistKey: string;
+    playingList: any[];
 }
 export const partyListInitialState: PartyListContext = {
     raw: [],
     playlist: [],
-    playlistKey: ''
+    playlistKey: '',
+    playingList: [],
 };
 export const partyListContext = createContext(partyListInitialState);
 
-function onlyUnique(value: any, index: number, array: any[]) {
-    return array.indexOf(value) === index;
+function onlyUnique(item: any, index: number, array: any[]) {
+    return array.findIndex(e => e.key === item.key) === index;
 }
 
 export function reducer(state: any, action: any) {

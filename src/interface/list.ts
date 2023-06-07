@@ -1,4 +1,4 @@
-export interface DataType {
+export interface ListColumn {
     key: string;
     title: string;
     thumbnails: string;
