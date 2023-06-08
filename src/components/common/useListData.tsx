@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Item, Items, ListColumn, ListResponse } from '@/interface/list';
+import { useState, useEffect } from 'react';
+import { Item, ListColumn, ListResponse } from '@/interface/list';
 import { shuffle } from '@/utils/shuffle';
-import { useLocalStorage } from 'usehooks-ts';
 import { checkRegionRestriction } from '@/utils/validVideos';
 
 export default function useListData(
@@ -12,7 +11,6 @@ export default function useListData(
   const [randomPlaylist, setRandomPlaylist] = useState<ListColumn[]>([]);
   const [randomPlaylistKey, setRandomPlaylistKey] = useState('');
 
-  console.log('playlistsRaw change', playlistsRaw);
   useEffect(() => {
     let allLists;
     if (Array.isArray(playlistsRaw)) {

@@ -87,23 +87,17 @@ const MusicPlayer: React.FC<any> = () => {
   const { playlist } = useContext(partyListContext);
 
   const play = () => {
-    console.log(player, playerRef.current?.getInternalPlayer());
     if (!player) return;
-    console.log(playlist);
     if (
       player.getPlaylist()?.length === 0 ||
       !player.getVideoData()?.video_id ||
       player.getPlayerState() === -1
     ) {
-      console.log(player.getPlayerState());
       updatePlayingList();
     }
 
-    // updatePlayingList();
     setTimeout(() => {
       player.playVideo();
-      console.log(player.getPlaylist(), player.getVideoUrl());
-      console.log('play');
     }, 200);
   };
   const pause = () => {
@@ -116,27 +110,16 @@ const MusicPlayer: React.FC<any> = () => {
     player?.stopVideo();
     onEnd();
   };
-  const skipNotPlayableVideo = (num: number) => {
-    const playlistIndex = player.playerInfo.playlist
-      ? player.playerInfo.playlist?.indexOf(player.getVideoData().video_id)
-      : 0;
-    let playingIndex = playlistIndex + num;
-    console.log('skip', playingList, playingIndex);
-    player.cuePlaylist(playingList.videoIds, playingIndex);
-  };
   const next = () => {
-    console.log(player.getVideoData()?.video_id);
     updatePlayingList();
     if (!player) return;
     setTimeout(() => {
-      console.log('next');
       player?.nextVideo();
     }, 1000);
   };
   const previous = () => {
     if (!player) return;
     setTimeout(() => {
-      console.log('pre');
       player?.previousVideo();
     }, 1000);
   };
@@ -151,7 +134,6 @@ const MusicPlayer: React.FC<any> = () => {
       return !pre;
     });
     player?.setShuffle(bool);
-    console.log('random', bool, isShuffle);
   };
   const setRepeatOne = (bool: boolean) => {
     setIsRepeatOne((pre) => !pre);
@@ -159,8 +141,6 @@ const MusicPlayer: React.FC<any> = () => {
 
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
     const player = event.target;
-    console.log(event);
-    // setPlayer(playerRef.current?.getInternalPlayer().playVideo());
     if (!player || !player.i || !player.g) return;
     setPlayer(() => player);
   };
@@ -172,18 +152,11 @@ const MusicPlayer: React.FC<any> = () => {
     listenCurrentTime();
   };
   const onEnd = () => {
-    console.log('on end');
     setCurrentVideoData('');
     setCurrentVideoThumbnails('');
     setIsPlay(false);
   };
-  const onStateChange = (state: any) => {
-    // console.log(
-    //   'onStateChange',
-    //   state,
-    //   player.playerInfo.playlist.playbackQuality
-    // );
-  };
+  const onStateChange = (state: any) => {};
 
   const updateDuration = () => {
     setProgress((progress) => ({
@@ -202,19 +175,17 @@ const MusicPlayer: React.FC<any> = () => {
     setTimeoutId(id);
   };
   const getSrcById = (id: string): string => {
-    console.log(playingList);
     if (playingList.raw.length < 1) return '';
     return playingList.raw.find((e: any) => e.videoId === id)
       .thumbnails as string;
   };
+  // const setVolume = (value: number) => {
+  //   player.setVolume(value);
+  // };
 
-  const setVolume = (value: number) => {
-    player.setVolume(value);
-  };
-
-  const setTimeAt = (value: number) => {
-    player.seekTo(value);
-  };
+  // const setTimeAt = (value: number) => {
+  //   player.seekTo(value);
+  // };
 
   const updatePlayingList = useCallback(async () => {
     if (!player) return;
@@ -225,7 +196,6 @@ const MusicPlayer: React.FC<any> = () => {
       (!isRepeat && playlistIndex + 1 >= player.playerInfo.playlist?.length) ||
       playlist.length === 0
     ) {
-      console.log('finished!');
       stop();
     }
     let updatedPlaylist =
@@ -235,19 +205,11 @@ const MusicPlayer: React.FC<any> = () => {
     let playingIndex = playlistIndex >= 0 ? playlistIndex : 0;
     if (isShuffle) {
       const random = shuffle([...updatedPlaylist]);
-      console.log(
-        updatedPlaylist[0],
-        random[0],
-        player.playerInfo.playlist?.indexOf(random[0]),
-        playingIndex
-      );
       playingIndex =
         playlist.map((e) => e.videoId).indexOf(random[0]) + 1 === playingIndex
           ? playlist.map((e) => e.videoId).indexOf(random[1])
           : playlist.map((e) => e.videoId).indexOf(random[0]);
-      console.log('final indx', playingIndex);
     }
-    console.log(updatedPlaylist);
 
     const isChange = (arr1: string[], arr2: string[]) => {
       const array2Sorted = [...arr2].sort();
@@ -266,7 +228,6 @@ const MusicPlayer: React.FC<any> = () => {
       player.getPlaylist() &&
       isChange(updatedPlaylist, player.getPlaylist())
     ) {
-      console.log('new playlist', updatedPlaylist, player.getPlaylist());
       stop();
       setTimeout(() => {
         player.cuePlaylist(updatedPlaylist, playingIndex + 1);
@@ -276,13 +237,12 @@ const MusicPlayer: React.FC<any> = () => {
     }
 
     setPlayingList({ raw: playlist, videoIds: updatedPlaylist });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRepeat, player, playlist, isShuffle]);
 
   useEffect(() => {
     if (!player || !player.i || !player.g) return;
-    console.log('playlist change', player.getPlaylist(), playlist);
     if (!isPlay && !player.getPlaylist() && playlist.length > 0) {
-      console.log('initial loading');
       updatePlayingList();
     }
   }, [player, isPlay, updatePlayingList, playlist]);
@@ -324,7 +284,7 @@ const MusicPlayer: React.FC<any> = () => {
             open: isTooltipVisible,
           }}
           handleStyle={{ top: '-4px' }}
-          onAfterChange={(value) => setTimeAt(value)}
+          onAfterChange={(value) => player.seekTo(value)}
         />
       </div>
       <div
@@ -433,7 +393,7 @@ const MusicPlayer: React.FC<any> = () => {
             min={0}
             max={100}
             defaultValue={100}
-            onChange={(value: number) => setVolume(value)}
+            onChange={(value) => player.setVolume(value)}
             style={{ width: '100px', marginRight: '25px' }}
             tooltip={{
               open: false,

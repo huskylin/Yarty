@@ -7,14 +7,11 @@ export const getRegion = async () => {
         const data = await res.json();
         region = data.countryCode;
     } catch (error) {
-        console.log(error);
         region = navigator.language.split('-')[1];
     }
-    console.log('region', region);
     return region;
 };
 export const checkRegionRestriction = async (videoIds: string[]) => {
-    console.log(videoIds);
     if (videoIds.length === 0) return;
     const videoIdsParm = videoIds.join(',');
     const res = await fetch(
