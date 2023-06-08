@@ -1,5 +1,5 @@
 import { YouTubeVideosResponse } from "@/interface/Videos";
-const apiPath = process.env.API_PATH
+const apiPath = process.env.API_PATH;
 
 export const getRegion = async () => {
     let region = 'TW';
