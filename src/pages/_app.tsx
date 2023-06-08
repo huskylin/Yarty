@@ -2,7 +2,7 @@ import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 const queryClient = new QueryClient();
-import ThemeProvider from '../styles/theme-provider';
+import ThemeProvider from '@/styles/theme-provider';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
