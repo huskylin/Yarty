@@ -30,6 +30,7 @@ export default function Home() {
               zIndex: 1,
               width: '100%',
               backgroundColor: '#ffffff',
+              paddingInline: '32px',
             }}
           >
             <div
@@ -37,18 +38,22 @@ export default function Home() {
                 height: '100%',
                 display: 'flex',
                 alignItems: 'center',
+                justifyContent: 'space-between',
               }}
             >
-              <Image
-                src={'/logo.png'}
-                alt="logo"
-                width={'36'}
-                height={'36'}
-              ></Image>
-              <Title level={3} style={{ margin: '0 30px' }}>
-                Youtube Partylist
-              </Title>
+              <span style={{ display: 'flex' }}>
+                <Image
+                  src={'/logo.png'}
+                  alt="logo"
+                  width={'36'}
+                  height={'36'}
+                ></Image>
+                <Title level={3} style={{ margin: '0 20px 0 0' }}>
+                  Youtube Partylist
+                </Title>
+              </span>
               <SearchBar setPlaylistRaw={setPlaylistRaw}></SearchBar>
+              <div style={{ width: '0 2 225px' }}></div>
             </div>
           </Header>
           <Content>

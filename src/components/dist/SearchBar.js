@@ -76,6 +76,6 @@ var SearchBar = function (_a) {
         setPlaylistId(id[2]);
         refetch();
     };
-    return (react_1["default"].createElement(Search, { defaultValue: 'https://www.youtube.com/playlist?list=PLWpc_btr7hYDAKu52Icz3-Z09nZ0SVW1A', allowClear: true, onSearch: onSearch, size: "large", style: { width: '80%' } }));
+    return (react_1["default"].createElement(Search, { defaultValue: 'https://www.youtube.com/playlist?list=PLWpc_btr7hYDAKu52Icz3-Z09nZ0SVW1A', allowClear: true, onSearch: onSearch, size: "large", style: { flex: '0 1 728px' } }));
 };
 exports["default"] = SearchBar;

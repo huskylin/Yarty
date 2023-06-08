@@ -41,7 +41,7 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
       allowClear
       onSearch={onSearch}
       size="large"
-      style={{ width: '80%' }}
+      style={{ flex: '0 1 728px' }}
     />
   );
 };
