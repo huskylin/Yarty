@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from 'antd';
 import { useQuery } from 'react-query';
+import { ListResponse } from '@/interface/list';
 
 const { Search } = Input;
 const apiPath = process.env.API_PATH;
@@ -20,8 +21,10 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
     {
       refetchOnWindowFocus: false,
       enabled: !!playlistId,
-      onSuccess: (data) => {
-        setPlaylistRaw(data);
+      onSuccess: (data: ListResponse) => {
+        if (data.items.items && data.listName.items) {
+          setPlaylistRaw(data);
+        }
       },
     }
   );

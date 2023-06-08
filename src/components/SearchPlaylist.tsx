@@ -25,7 +25,7 @@ const SearchPlaylist: React.FC<any> = ({ dispatch, playlistRaw }) => {
     });
   };
   const cardTitle = () => {
-    if (playlistRaw && playlistRaw?.items.items.length > 0) {
+    if (playlistRaw?.items?.items?.length ?? false) {
       return (
         <>
           <Text style={{ fontSize: '21px' }}>

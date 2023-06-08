@@ -5,5 +5,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const apiName = `videos`
     const parms = `part=contentDetails, id&id=${req.query.videoIds}`
     const VideoDetails = await fetchYT(apiName, parms);
+    
     res.end(JSON.stringify(VideoDetails))
 }

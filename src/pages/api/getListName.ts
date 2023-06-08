@@ -5,5 +5,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const apiName = `playlists`
     const parms = `part=snippet&id=${req.query.playlistId}`
     const playList = await fetchYT(apiName, parms);
+    
     res.end(JSON.stringify(playList))
 }

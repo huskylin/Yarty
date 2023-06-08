@@ -86,6 +86,7 @@ const MusicPlayer: React.FC<any> = () => {
   const playerRef = useRef<YouTube | null>(null);
   const { playlist } = useContext(partyListContext);
 
+  // actions
   const play = () => {
     if (!player) return;
     if (
@@ -123,6 +124,7 @@ const MusicPlayer: React.FC<any> = () => {
       player?.previousVideo();
     }, 1000);
   };
+  // play option
   const setRepeat = (bool: boolean) => {
     if (!player) return;
     setIsRepeat(bool);
@@ -138,7 +140,7 @@ const MusicPlayer: React.FC<any> = () => {
   const setRepeatOne = (bool: boolean) => {
     setIsRepeatOne((pre) => !pre);
   };
-
+  // listener
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
     const player = event.target;
     if (!player || !player.i || !player.g) return;
@@ -179,13 +181,6 @@ const MusicPlayer: React.FC<any> = () => {
     return playingList.raw.find((e: any) => e.videoId === id)
       .thumbnails as string;
   };
-  // const setVolume = (value: number) => {
-  //   player.setVolume(value);
-  // };
-
-  // const setTimeAt = (value: number) => {
-  //   player.seekTo(value);
-  // };
 
   const updatePlayingList = useCallback(async () => {
     if (!player) return;
