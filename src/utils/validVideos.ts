@@ -1,4 +1,5 @@
 import { YouTubeVideosResponse } from "@/interface/Videos";
+const apiPath = process.env.API_PATH
 
 export const getRegion = async () => {
     let region = 'TW';
@@ -15,7 +16,7 @@ export const checkRegionRestriction = async (videoIds: string[]) => {
     if (videoIds.length === 0) return;
     const videoIdsParm = videoIds.join(',');
     const res = await fetch(
-        `http://localhost:3000/api/getVideos?videoIds=${videoIdsParm}`
+        `${apiPath}/api/getVideos?videoIds=${videoIdsParm}`
     );
     const data: YouTubeVideosResponse = await res.json();
     const region = await getRegion();

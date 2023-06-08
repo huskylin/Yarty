@@ -3,12 +3,11 @@ import { Input } from 'antd';
 import { useQuery } from 'react-query';
 
 const { Search } = Input;
+const apiPath = process.env.API_PATH;
 
 const fetchPlaylist = async (playlistId: string) => {
   if (!playlistId) return;
-  const res = await fetch(
-    `http://localhost:3000/api/getList?playlistId=${playlistId}`
-  );
+  const res = await fetch(`${apiPath}/api/getList?playlistId=${playlistId}`);
   const data = await res.json();
   return data;
 };
