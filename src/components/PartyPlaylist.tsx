@@ -31,8 +31,9 @@ const PartyPlayList: React.FC<any> = ({ dispatch }) => {
     <Card
       title={<Text style={{ fontSize: '21px' }}>已加入歌曲</Text>}
       bordered={false}
-      bodyStyle={{ height: '80vh', overflow: 'auto' }}
+      bodyStyle={{ overflow: 'auto' }}
       extra={<Button onClick={() => resetPartyList()}>清除</Button>}
+      style={{ height: '100%' }}
     >
       <List data={playlist} key={playlistKey} from={'party'}></List>
     </Card>

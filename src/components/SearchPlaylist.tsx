@@ -61,7 +61,8 @@ const SearchPlaylist: React.FC<any> = ({ dispatch, playlistRaw }) => {
           <Button onClick={() => addAllPartyList()}>全部</Button>
         </div>
       }
-      bodyStyle={{ height: '80vh', overflow: 'auto' }}
+      bodyStyle={{ overflow: 'auto' }}
+      style={{ height: '100%' }}
     >
       <List
         data={playlist || []}

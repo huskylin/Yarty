@@ -45,11 +45,7 @@ const StyledBigButton = styled(Button)`
 `;
 
 const StyledSlider = styled(Slider)`
-  /* width: 99vw;
-  margin-left: -50px;
-  position: absolute;
-  top: -4px;
-  padding-top: 0px; */
+  /*  */
 `;
 
 const StyledDuration = styled.div`
@@ -279,6 +275,10 @@ const MusicPlayer: React.FC<any> = () => {
             open: isTooltipVisible,
           }}
           handleStyle={{ top: '-4px' }}
+          trackStyle={{
+            background:
+              'linear-gradient(to right, rgba(255, 0, 177, 0.5), rgba(255, 216, 0, 0.5))',
+          }}
           onAfterChange={(value) => player.seekTo(value)}
         />
       </div>

@@ -13,8 +13,6 @@ import SearchPlaylist from '@/components/SearchPlaylist';
 import Image from 'next/image';
 
 const { Header, Content } = Layout;
-const { Title } = Typography;
-
 export default function Home() {
   const [partyList, dispatch] = useReducer(reducer, partyListInitialState);
   const [playlistRaw, setPlaylistRaw] = useState<ListResponse>();
@@ -30,7 +28,7 @@ export default function Home() {
               zIndex: 1,
               width: '100%',
               backgroundColor: '#ffffff',
-              paddingInline: '32px',
+              padding: '32px',
             }}
           >
             <div
@@ -43,29 +41,26 @@ export default function Home() {
             >
               <span style={{ display: 'flex' }}>
                 <Image
-                  src={'/logo.png'}
+                  src={'/YartyLogo2.png'}
                   alt="logo"
-                  width={'36'}
-                  height={'36'}
+                  width={'117'}
+                  height={'45'}
                 ></Image>
-                <Title level={3} style={{ margin: '0 20px 0 0' }}>
-                  Youtube Partylist
-                </Title>
               </span>
               <SearchBar setPlaylistRaw={setPlaylistRaw}></SearchBar>
               <div style={{ width: '0 2 225px' }}></div>
             </div>
           </Header>
-          <Content>
-            <Row style={{ height: '100%' }}>
-              <Col span={12} style={{ padding: 10 }}>
+          <Content style={{ overflow: 'auto' }}>
+            <Row style={{ height: '100%', flexWrap: 'wrap' }}>
+              <Col xs={24} sm={12} style={{ padding: 10, flex: '0 0 100%' }}>
                 <SearchPlaylist
                   dispatch={dispatch}
                   playlistRaw={playlistRaw}
                 ></SearchPlaylist>
               </Col>
 
-              <Col span={12} style={{ padding: 10 }}>
+              <Col xs={24} sm={12} style={{ padding: 10, flex: '0 0 100%' }}>
                 <PartyPlaylist dispatch={dispatch}></PartyPlaylist>
               </Col>
             </Row>
@@ -76,7 +71,7 @@ export default function Home() {
               bottom: 0,
               zIndex: 1,
               width: '100%',
-              paddingInline: '0',
+              padding: '0',
               backgroundColor: '#ffffff',
             }}
           >
