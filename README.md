@@ -1,38 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![](https://hackmd.io/_uploads/HyB56REDn.png)
+## **Yarty** 是一個混合 YouTube 播放清單的服務
+當我們和朋友舉辦派對、公路旅行、野外露營
+想要來點音樂點綴氣氛時
+Simon 喜歡搖滾樂 Susan 喜歡爵士樂
+Alex 喜歡電子樂 Anny 喜歡流行樂
+一個人的快樂太孤獨，一群人的快樂會傳染
+若是可以把大家喜歡的音樂都集合起來
+那麼肯定會是一場狂歡
 
-## Getting Started
+這時候就可以使用 **Yarty**
+隨時隨地來一場 YouTube Party!
 
-First, run the development server:
+## 使用說明
+1. 在 YouTube 中複製播放清單網址
+2. 在 **Yarty** 中搜尋
+3. 按照喜好，加入至派對清單中
+4. 派對清單可以混合多個播放清單
+5. 不要多想，按下播放鍵，開始狂歡
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## 未來規劃
+1. 登入功能
+2. 匯出派對清單至 YouTube 帳號
+3. 手機版版面調整
+4. 播放清單推薦
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## **Yarty** is a service that aggregates YouTube playlists.
+When we have parties, go on road trips or go camping in the wilderness,
+we like to add some music to create an atmosphere.
+Simon likes rock, Susan likes jazz,
+Alex likes electronic and Anny likes pop.
+Happiness is better shared,
+and music has the power to bring people together.
+If we can bring everyone's favourite music together in one place,
+it will surely be a wild celebration.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+That's where **Yarty** comes in.
+Throw a YouTube party anytime, anywhere!
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## User Guide
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Copy the URL of the playlist from YouTube.
+2. Search for the playlist in **Yarty**.
+3. Add the playlist to your party list according to your preferences.
+4. The party list can contain multiple playlists mixed together.
+5. Don't hesitate, hit play and get the party started.
 
-## Learn More
+## Future Plans
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Login functionality
+2. Export party list to YouTube account
+3. Mobile layout adjustments
+4. Playlist recommendations
