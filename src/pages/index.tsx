@@ -28,7 +28,7 @@ export default function Home() {
               zIndex: 1,
               width: '100%',
               backgroundColor: '#ffffff',
-              padding: '32px',
+              padding: '16px',
             }}
           >
             <div
@@ -45,6 +45,7 @@ export default function Home() {
                   alt="logo"
                   width={'117'}
                   height={'45'}
+                  style={{ marginRight: '16px' }}
                 ></Image>
               </span>
               <SearchBar setPlaylistRaw={setPlaylistRaw}></SearchBar>
