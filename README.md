@@ -1,4 +1,4 @@
-![](https://hackmd.io/_uploads/HyB56REDn.png)
+![Yarty Logo](https://github.com/huskylin/YoutubeParty/blob/main/public/YartyLogo2.png)
 ## **Yarty** 是一個混合 YouTube 播放清單的服務
 當我們和朋友舉辦派對、公路旅行、野外露營
 想要來點音樂點綴氣氛時
