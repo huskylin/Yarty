@@ -26,7 +26,13 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
   const recommendations = useRecommendations();
   const { refetch, isLoading } = useQuery(
     ['playList', playlistId],
-    () => fetchPlaylist(playlistId),
+    () => {
+      if (playlistId) {
+        return fetchPlaylist(playlistId);
+      } else {
+        return Promise.resolve();
+      }
+    },
     {
       refetchOnWindowFocus: false,
       enabled: !!playlistId,
