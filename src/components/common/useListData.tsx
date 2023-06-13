@@ -31,6 +31,7 @@ export default function useListData(
       return allItems.filter((item: Item, index: number) => {
         return (
           item.snippet.title !== 'Private video' &&
+          item.snippet.title !== 'Deleted video' &&
           isRestricted &&
           !isRestricted[index]
         );
@@ -43,7 +44,7 @@ export default function useListData(
         return {
           key: item.id,
           title: item.snippet.title,
-          thumbnails: item.snippet.thumbnails?.medium.url || '',
+          thumbnails: item.snippet.thumbnails?.medium?.url || '',
           videoOwnerChannelTitle: item.snippet.videoOwnerChannelTitle,
           videoId: item.snippet.resourceId.videoId,
         };
