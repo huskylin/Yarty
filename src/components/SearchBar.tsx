@@ -21,7 +21,8 @@ const fetchPlaylist = async (playlistId: string) => {
 };
 
 const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
-  const [playlistId, setPlaylistId]: any = useState();
+  const [playlistId, setPlaylistId] = useState('');
+  const [isValid, setIsValid] = useState(true);
   const recommendations = useRecommendations();
   const { refetch } = useQuery(
     ['playList', playlistId],
@@ -39,7 +40,11 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
   const onSearch = (playlistIdRaw: string) => {
     if (!playlistIdRaw) return;
     const id = playlistIdRaw.match(/(list=)+([a-zA-Z0-9_-]+)/) as string[];
-    if (!id[2]) return;
+    if (!id || !id[2]) {
+      setIsValid(false);
+      return;
+    }
+    setIsValid(true);
     setPlaylistId(id[2]);
     refetch();
   };
@@ -51,6 +56,7 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
       allowClear
       onSearch={onSearch}
       size="large"
+      status={isValid ? '' : 'error'}
       style={{ flex: '0 1 728px' }}
     />
   );

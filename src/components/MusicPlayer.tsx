@@ -29,12 +29,14 @@ import { shuffle } from '@/utils/shuffle';
 const { Text } = Typography;
 
 interface ButtonProps {
-  isActive?: boolean;
+  isactive?: string;
 }
 const StyledButton = styled(Button)<ButtonProps>`
   font-size: 18px;
   color: ${(props) =>
-    props.isActive ? props.theme.antd.colorPrimary : 'inherit'};
+    String(props.isactive).toLowerCase() === 'true'
+      ? props.theme.antd.colorPrimary
+      : 'inherit'};
 `;
 
 const StyledBigButton = styled(Button)`
@@ -364,7 +366,7 @@ const MusicPlayer: React.FC<any> = () => {
           <StyledButton
             type="text"
             onClick={() => setRepeatOne(true)}
-            isActive={isRepeatOne}
+            isactive={isRepeatOne.toString()}
           >
             <TbRepeatOnce />
           </StyledButton>
@@ -380,7 +382,7 @@ const MusicPlayer: React.FC<any> = () => {
           <StyledButton
             type="text"
             onClick={() => setShuffle(!isShuffle)}
-            isActive={isShuffle}
+            isactive={isShuffle.toString()}
           >
             <TbArrowsShuffle />
           </StyledButton>
