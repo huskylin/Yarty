@@ -24,7 +24,7 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
   const [playlistId, setPlaylistId] = useState('');
   const [isValid, setIsValid] = useState(true);
   const recommendations = useRecommendations();
-  const { refetch } = useQuery(
+  const { refetch, isLoading } = useQuery(
     ['playList', playlistId],
     () => fetchPlaylist(playlistId),
     {
@@ -55,6 +55,7 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
       }`}
       allowClear
       onSearch={onSearch}
+      loading={isLoading}
       size="large"
       status={isValid ? '' : 'error'}
       style={{ flex: '0 1 728px' }}
