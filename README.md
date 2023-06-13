@@ -2,16 +2,16 @@
 # [Yarty Live Demo](https://yarty.vercel.app/)
 
 ## **Yarty** 是一個混合 YouTube 播放清單的服務
-當我們和朋友舉辦派對、公路旅行、野外露營
-想要來點音樂點綴氣氛時
-Simon 喜歡搖滾樂 Susan 喜歡爵士樂
-Alex 喜歡電子樂 Anny 喜歡流行樂
-一個人的快樂太孤獨，一群人的快樂會傳染
-若是可以把大家喜歡的音樂都集合起來
-那麼肯定會是一場狂歡
+當我們和朋友舉辦派對、公路旅行、野外露營  
+想要來點音樂點綴氣氛時  
+Simon 喜歡搖滾樂 Susan 喜歡爵士樂  
+Alex 喜歡電子樂 Anny 喜歡流行樂  
+一個人的快樂太孤獨，一群人的快樂會傳染  
+若是可以把大家喜歡的音樂都集合起來  
+那麼肯定會是一場狂歡  
 
-這時候就可以使用 **Yarty**
-隨時隨地來一場 YouTube Party!
+這時候就可以使用 **Yarty**  
+隨時隨地來一場 YouTube Party!  
 
 ## 使用說明
 1. 在 YouTube 中複製播放清單網址
@@ -30,16 +30,16 @@ Alex 喜歡電子樂 Anny 喜歡流行樂
 
 ## **Yarty** is a service that aggregates YouTube playlists.
 When we have parties, go on road trips or go camping in the wilderness,
-we like to add some music to create an atmosphere.
+we like to add some music to create an atmosphere.  
 Simon likes rock, Susan likes jazz,
-Alex likes electronic and Anny likes pop.
+Alex likes electronic and Anny likes pop.  
 Happiness is better shared,
-and music has the power to bring people together.
+and music has the power to bring people together.  
 If we can bring everyone's favourite music together in one place,
-it will surely be a wild celebration.
+it will surely be a wild celebration.  
 
-That's where **Yarty** comes in.
-Throw a YouTube party anytime, anywhere!
+That's where **Yarty** comes in.  
+Throw a YouTube party anytime, anywhere!  
 
 ## User Guide
 
