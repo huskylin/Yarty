@@ -106,7 +106,6 @@ const StyledTable = styled(Table)<any>`
 const List: React.FC<Props> = ({ data, from }) => {
   const [dataSource, setDataSource] = useState(data);
   const screens = useBreakpoint();
-  console.log(screens);
   const columns: ColumnsType<ListColumn> = [
     // {
     //   key: 'sort',

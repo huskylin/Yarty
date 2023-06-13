@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Item, ListColumn, ListResponse } from '@/interface/list';
 import { shuffle } from '@/utils/shuffle';
-import { checkRegionRestriction } from '@/utils/validVideos';
+import { useRegionRestriction } from './useRegion';
 
 export default function useListData(
   playlistsRaw: ListResponse[] | ListResponse
@@ -10,6 +10,8 @@ export default function useListData(
   const [playlistKey, setPlaylistKey] = useState('');
   const [randomPlaylist, setRandomPlaylist] = useState<ListColumn[]>([]);
   const [randomPlaylistKey, setRandomPlaylistKey] = useState('');
+  const [videoIds, setVideoIds] = useState<string[]>([]);
+  const { data: isRestricted } = useRegionRestriction(videoIds);
 
   useEffect(() => {
     let allLists;
@@ -23,8 +25,9 @@ export default function useListData(
     const videoIds = allItems.map(
       (item: Item) => item.snippet.resourceId.videoId
     );
-    async function validItems() {
-      const isRestricted = await checkRegionRestriction(videoIds);
+    setVideoIds(videoIds);
+
+    function validItems() {
       return allItems.filter((item: Item, index: number) => {
         return (
           item.snippet.title !== 'Private video' &&
@@ -34,8 +37,8 @@ export default function useListData(
       });
     }
 
-    async function set() {
-      const validatedItems = await validItems();
+    function set() {
+      const validatedItems = validItems();
       const listData: ListColumn[] = validatedItems.map((item: Item) => {
         return {
           key: item.id,
@@ -52,7 +55,7 @@ export default function useListData(
       setRandomPlaylistKey(randomListData.map((e) => e.key).toString());
     }
     set();
-  }, [playlistsRaw]);
+  }, [isRestricted, playlistsRaw]);
 
   return { playlist, playlistKey, randomPlaylist, randomPlaylistKey };
 }

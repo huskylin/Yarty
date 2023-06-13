@@ -7,15 +7,21 @@ const { Search } = Input;
 const apiPath = process.env.API_PATH;
 
 const fetchPlaylist = async (playlistId: string) => {
-  if (!playlistId) return;
-  const res = await fetch(`${apiPath}/api/getList?playlistId=${playlistId}`);
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(`${apiPath}/api/getList?playlistId=${playlistId}`);
+    if (!res.ok) {
+      throw new Error('Failed to fetch playlist');
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
   const [playlistId, setPlaylistId]: any = useState();
-  const { data, isSuccess, refetch } = useQuery(
+  const { refetch } = useQuery(
     ['playList', playlistId],
     () => fetchPlaylist(playlistId),
     {
@@ -28,9 +34,9 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
       },
     }
   );
-  const onSearch = (playlistId: string) => {
-    if (!playlistId) return;
-    const id = playlistId.match(/(list=)+([a-zA-Z0-9_-]+)/) as string[];
+  const onSearch = (playlistIdRaw: string) => {
+    if (!playlistIdRaw) return;
+    const id = playlistIdRaw.match(/(list=)+([a-zA-Z0-9_-]+)/) as string[];
     if (!id[2]) return;
     setPlaylistId(id[2]);
     refetch();
