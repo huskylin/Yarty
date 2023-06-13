@@ -21,8 +21,9 @@ Alex 喜歡電子樂 Anny 喜歡流行樂
 ## 未來規劃
 1. 登入功能
 2. 匯出派對清單至 YouTube 帳號
-3. 手機版版面調整
-4. 播放清單推薦
+3. 播放功能操作調整
+4. 手機版版面調整
+5. 播放清單推薦
 
 
 ## **Yarty** is a service that aggregates YouTube playlists.
@@ -50,5 +51,6 @@ Throw a YouTube party anytime, anywhere!
 
 1. Login functionality
 2. Export party list to YouTube account
-3. Mobile layout adjustments
-4. Playlist recommendations
+3. Player adjustments
+4. Mobile layout adjustments
+5. Playlist recommendations
