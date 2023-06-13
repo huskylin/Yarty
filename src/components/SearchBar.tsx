@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Input } from 'antd';
 import { useQuery } from 'react-query';
 import { ListResponse } from '@/interface/list';
+import { useRecommendations } from './common/useRecommendations';
 
 const { Search } = Input;
 const apiPath = process.env.API_PATH;
@@ -21,6 +22,7 @@ const fetchPlaylist = async (playlistId: string) => {
 
 const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
   const [playlistId, setPlaylistId]: any = useState();
+  const recommendations = useRecommendations();
   const { refetch } = useQuery(
     ['playList', playlistId],
     () => fetchPlaylist(playlistId),
@@ -43,9 +45,9 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
   };
   return (
     <Search
-      defaultValue={
-        'https://www.youtube.com/playlist?list=PLWpc_btr7hYDAKu52Icz3-Z09nZ0SVW1A'
-      }
+      defaultValue={`https://www.youtube.com/playlist?list=${
+        recommendations[Math.floor(Math.random() * recommendations.length)]
+      }`}
       allowClear
       onSearch={onSearch}
       size="large"
