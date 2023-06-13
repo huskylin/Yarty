@@ -9,7 +9,7 @@ export const useRegion = () => {
 
   const fetchRegion = async () => {
     try {
-      const res = await fetch('http://ip-api.com/json');
+      const res = await fetch(`${apiPath}/api/getRegion`);
       const data = await res.json();
       setRegion(data.countryCode);
     } catch (error) {
@@ -30,11 +30,16 @@ export const useRegionRestriction = (videoIds: string[]) => {
 
     const videoIdsParam = videoIds.join(',');
 
-    const res = await fetch(`${apiPath}/api/getVideos?videoIds=${videoIdsParam}`);
+    const res = await fetch(
+      `${apiPath}/api/getVideos?videoIds=${videoIdsParam}`
+    );
     const data: YouTubeVideosResponse = await res.json();
 
     const restricted = data.items.map((item) => {
-      if (item.contentDetails.regionRestriction && item.contentDetails.regionRestriction.blocked) {
+      if (
+        item.contentDetails.regionRestriction &&
+        item.contentDetails.regionRestriction.blocked
+      ) {
         return item.contentDetails.regionRestriction.blocked.includes(region);
       }
       return false;
