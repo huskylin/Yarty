@@ -11,6 +11,7 @@ import {
 } from '@/context/partyListContext';
 import SearchPlaylist from '@/components/SearchPlaylist';
 import Image from 'next/image';
+import Head from 'next/head';
 
 const { Header, Content } = Layout;
 export default function Home() {
@@ -31,6 +32,9 @@ export default function Home() {
               padding: '16px',
             }}
           >
+            <Head>
+              <title>Yarty - Party Playlist</title>
+            </Head>
             <div
               style={{
                 height: '100%',
