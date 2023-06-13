@@ -34,6 +34,7 @@ export default function Home() {
           >
             <Head>
               <title>Yarty - Party Playlist</title>
+              <meta name="description" content="YouTube playlists mixer for party"></meta>
             </Head>
             <div
               style={{
