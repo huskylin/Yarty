@@ -19,14 +19,16 @@ Alex 喜歡電子樂 Anny 喜歡流行樂
 3. 按照喜好，加入至派對清單中
 4. 派對清單可以混合多個播放清單
 5. 不要多想，按下播放鍵，開始狂歡
-6. 
+
 ![Demo](https://github.com/huskylin/YoutubeParty/blob/main/public/demo.gif)
+
 ## 未來規劃
-1. 登入功能
-2. 匯出派對清單至 YouTube 帳號
-3. 播放功能操作調整
-4. 手機版版面調整
-5. 播放清單推薦
+1. 支援加入單一影片
+2. 登入功能
+3. 匯出派對清單至 YouTube 帳號
+4. 播放功能操作調整
+5. 手機版版面調整
+6. 播放清單推薦
 
 
 ## **Yarty** is a service that aggregates YouTube playlists.
@@ -52,8 +54,9 @@ Throw a YouTube party anytime, anywhere!
 
 ## Future Plans
 
-1. Login functionality
-2. Export party list to YouTube account
-3. Player adjustments
-4. Mobile layout adjustments
-5. Playlist recommendations
+1. Support for adding a single video
+2. Login functionality
+3. Export party list to YouTube account
+4. Player adjustments
+5. Mobile layout adjustments
+6. Playlist recommendations
