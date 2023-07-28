@@ -85,101 +85,11 @@ const MusicPlayer: React.FC<any> = () => {
   const { playlist } = useContext(partyListContext);
 
   // actions
-  const play = () => {
-    if (!player) return;
-    if (
-      player.getPlaylist()?.length === 0 ||
-      !player.getVideoData()?.video_id ||
-      player.getPlayerState() === -1
-    ) {
-      updatePlayingList();
-    }
-
-    setTimeout(() => {
-      player.playVideo();
-    }, 200);
-  };
-  const pause = () => {
-    if (!player) return;
-    player?.pauseVideo();
-    setIsPlay(false);
-  };
-  const stop = () => {
+  const stop = useCallback(() => {
     if (!player) return;
     player?.stopVideo();
     onEnd();
-  };
-  const next = () => {
-    updatePlayingList();
-    if (!player) return;
-    setTimeout(() => {
-      player?.nextVideo();
-    }, 1000);
-  };
-  const previous = () => {
-    if (!player) return;
-    setTimeout(() => {
-      player?.previousVideo();
-    }, 1000);
-  };
-  // play option
-  const setRepeat = (bool: boolean) => {
-    if (!player) return;
-    setIsRepeat(bool);
-    player?.setLoop(bool);
-  };
-  const setShuffle = (bool: boolean) => {
-    if (!player) return;
-    setIsShuffle((pre) => {
-      return !pre;
-    });
-    player?.setShuffle(bool);
-  };
-  const setRepeatOne = (bool: boolean) => {
-    setIsRepeatOne((pre) => !pre);
-  };
-  // listener
-  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
-    const player = event.target;
-    if (!player || !player.i || !player.g) return;
-    setPlayer(() => player);
-  };
-  const onPlay = () => {
-    setCurrentVideoData(player.getVideoData());
-    setCurrentVideoThumbnails(getSrcById(player.getVideoData().video_id));
-    setIsPlay(true);
-    updateDuration();
-    listenCurrentTime();
-  };
-  const onEnd = () => {
-    setCurrentVideoData('');
-    setCurrentVideoThumbnails('');
-    setIsPlay(false);
-  };
-  const onStateChange = (state: any) => {};
-
-  const updateDuration = () => {
-    setProgress((progress) => ({
-      ...progress,
-      max: player.getDuration(),
-    }));
-  };
-  const listenCurrentTime = () => {
-    window.clearInterval(timeoutId);
-    const id = window.setInterval(() => {
-      setProgress((progress) => ({
-        ...progress,
-        value: player.getCurrentTime(),
-      }));
-    }, 200);
-    setTimeoutId(id);
-  };
-  const getSrcById = (id: string): string => {
-    if (playingList.raw.length < 1) return '';
-    return playingList.raw.find((e: any) => e.videoId === id)
-      .thumbnails as string;
-  };
-
+  }, [player]);
   const updatePlayingList = useCallback(async () => {
     if (!player) return;
     const playlistIndex = player.playerInfo.playlist
@@ -230,8 +140,97 @@ const MusicPlayer: React.FC<any> = () => {
     }
 
     setPlayingList({ raw: playlist, videoIds: updatedPlaylist });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRepeat, player, playlist, isShuffle]);
+  }, [player, isRepeat, playlist, isShuffle, stop]);
+  const play = () => {
+    if (!player) return;
+    if (
+      player.getPlaylist()?.length === 0 ||
+      !player.getVideoData()?.video_id ||
+      player.getPlayerState() === -1
+    ) {
+      updatePlayingList();
+    }
+
+    setTimeout(() => {
+      player.playVideo();
+    }, 200);
+  };
+  const pause = () => {
+    if (!player) return;
+    player?.pauseVideo();
+    setIsPlay(false);
+  };
+  const next = useCallback(() => {
+    updatePlayingList();
+    if (!player) return;
+    setTimeout(() => {
+      player?.nextVideo();
+    }, 1000);
+  }, [player, updatePlayingList]);
+  const previous = () => {
+    if (!player) return;
+    setTimeout(() => {
+      player?.previousVideo();
+    }, 1000);
+  };
+
+  // play option
+  const setRepeat = (bool: boolean) => {
+    if (!player) return;
+    setIsRepeat(bool);
+    player?.setLoop(bool);
+  };
+  const setShuffle = (bool: boolean) => {
+    if (!player) return;
+    setIsShuffle((pre) => {
+      return !pre;
+    });
+    player?.setShuffle(bool);
+  };
+  const setRepeatOne = (bool: boolean) => {
+    setIsRepeatOne((pre) => !pre);
+  };
+
+  // listener
+  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
+    const player = event.target;
+    if (!player || !player.i || !player.g) return;
+    setPlayer(() => player);
+  };
+  const onPlay = () => {
+    setCurrentVideoData(player.getVideoData());
+    setCurrentVideoThumbnails(getSrcById(player.getVideoData().video_id));
+    setIsPlay(true);
+    updateDuration();
+    listenCurrentTime();
+  };
+  const onEnd = () => {
+    setCurrentVideoData('');
+    setCurrentVideoThumbnails('');
+    setIsPlay(false);
+  };
+  const onStateChange = (state: any) => {};
+  const updateDuration = () => {
+    setProgress((progress) => ({
+      ...progress,
+      max: player.getDuration(),
+    }));
+  };
+  const listenCurrentTime = () => {
+    window.clearInterval(timeoutId);
+    const id = window.setInterval(() => {
+      setProgress((progress) => ({
+        ...progress,
+        value: player.getCurrentTime(),
+      }));
+    }, 200);
+    setTimeoutId(id);
+  };
+  const getSrcById = (id: string): string => {
+    if (playingList.raw.length < 1) return '';
+    return playingList.raw.find((e: any) => e.videoId === id)
+      .thumbnails as string;
+  };
 
   useEffect(() => {
     if (!player || !player.i || !player.g) return;
@@ -254,8 +253,7 @@ const MusicPlayer: React.FC<any> = () => {
         next();
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [progress, player, isRepeatOne]);
+  }, [progress, player, isRepeatOne, next]);
 
   return (
     <>

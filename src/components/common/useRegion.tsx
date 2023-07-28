@@ -9,7 +9,7 @@ export const useRegion = () => {
 
   const fetchRegion = async () => {
     try {
-      const res = await fetch(`${apiPath}/api/getRegion`);
+      const res = await fetch(`${apiPath}/api/region`);
       const data = await res.json();
       setRegion(data.countryCode);
     } catch (error) {
@@ -31,7 +31,7 @@ export const useRegionRestriction = (videoIds: string[]) => {
     const videoIdsParam = videoIds.join(',');
 
     const res = await fetch(
-      `${apiPath}/api/getVideos?videoIds=${videoIdsParam}`
+      `${apiPath}/api/videos/${videoIdsParam}`
     );
     const data: YouTubeVideosResponse = await res.json();
 

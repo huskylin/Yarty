@@ -9,7 +9,7 @@ const apiPath = process.env.API_PATH;
 
 const fetchPlaylist = async (playlistId: string) => {
   try {
-    const res = await fetch(`${apiPath}/api/getList?playlistId=${playlistId}`);
+    const res = await fetch(`${apiPath}/api/list/${playlistId}`);
     if (!res.ok) {
       throw new Error('Failed to fetch playlist');
     }
@@ -45,11 +45,14 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
   );
   const onSearch = (playlistIdRaw: string) => {
     if (!playlistIdRaw) return;
+    // is playlist
     const id = playlistIdRaw.match(/(list=)+([a-zA-Z0-9_-]+)/) as string[];
     if (!id || !id[2]) {
       setIsValid(false);
       return;
     }
+    // is video
+    (/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|live\/|v\/)?)([\w\-]+)(\S+)?$/)
     setIsValid(true);
     setPlaylistId(id[2]);
     refetch();

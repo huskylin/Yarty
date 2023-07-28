@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ['i.ytimg.com'],
   },
+  experimental: {
+    appDir: true,
+  },
   env: {
     YT_KEY: process.env.YT_KEY,
     API_PATH: process.env.API_PATH,
