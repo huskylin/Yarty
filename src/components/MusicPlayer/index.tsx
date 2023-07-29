@@ -3,10 +3,8 @@ import React, {
   useRef,
   useContext,
   useEffect,
-  useReducer,
   useCallback,
 } from 'react';
-import { Button, Slider } from 'antd';
 import YouTube, { YouTubePlayer, YouTubeProps } from 'react-youtube';
 import { partyListContext } from '@/context/partyListContext';
 import { Typography } from 'antd';
@@ -21,41 +19,23 @@ import {
   TbRepeatOnce,
 } from 'react-icons/tb';
 import { secToMin } from '@/utils/secToMin';
-import styled from 'styled-components';
-import devices from '@/utils/devices';
-import Image from 'next/image';
 import { shuffle } from '@/utils/shuffle';
+import {
+  Container,
+  ControlButtonsContainer,
+  ControlsContainer,
+  StyledBigButton,
+  StyledButton,
+  StyledDuration,
+  StyledSlider,
+  StyledVolumeSlider,
+  ThumbnailsImage,
+  VideoInfoContainer,
+  VideoInfoTextContainer,
+  VideoTitle,
+} from './style';
 
 const { Text } = Typography;
-
-interface ButtonProps {
-  isactive?: string;
-}
-const StyledButton = styled(Button)<ButtonProps>`
-  font-size: 18px;
-  color: ${(props) =>
-    String(props.isactive).toLowerCase() === 'true'
-      ? props.theme.antd.colorPrimary
-      : 'inherit'};
-`;
-
-const StyledBigButton = styled(Button)`
-  display: flex;
-  align-content: center;
-  font-size: 32px;
-  height: auto;
-`;
-
-const StyledSlider = styled(Slider)`
-  /*  */
-`;
-
-const StyledDuration = styled.div`
-  display: none;
-  @media ${devices.laptop} {
-    display: initial;
-  }
-`;
 
 const opts: YouTubeProps['opts'] = {
   height: '390',
@@ -195,7 +175,7 @@ const MusicPlayer: React.FC<any> = () => {
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
     const player = event.target;
     if (!player || !player.i || !player.g) return;
-    setPlayer(() => player);
+    setPlayer(player);
   };
   const onPlay = () => {
     setCurrentVideoData(player.getVideoData());
@@ -264,12 +244,6 @@ const MusicPlayer: React.FC<any> = () => {
         <StyledSlider
           value={progress.value}
           max={progress.max}
-          style={{
-            width: '100vw',
-            position: 'absolute',
-            paddingTop: '0px',
-            margin: '0',
-          }}
           tooltip={{
             formatter: (value) => secToMin(value),
             open: isTooltipVisible,
@@ -282,25 +256,12 @@ const MusicPlayer: React.FC<any> = () => {
           onAfterChange={(value) => player.seekTo(value)}
         />
       </div>
-      <div
-        style={{
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <div
-          style={{
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            flex: '1 0',
-          }}
-        >
+      <Container>
+        <ControlsContainer>
           <StyledButton type="text" onClick={() => previous()}>
             <TbPlayerSkipBackFilled />
           </StyledButton>
+
           {isPlay ? (
             <StyledBigButton type="text" onClick={() => pause()}>
               <TbPlayerPauseFilled />
@@ -310,57 +271,36 @@ const MusicPlayer: React.FC<any> = () => {
               <TbPlayerPlayFilled />
             </StyledBigButton>
           )}
+
           <StyledButton type="text" onClick={() => next()}>
             <TbPlayerSkipForwardFilled />
           </StyledButton>
-          <div></div>
+
           {currentVideoData && (
             <StyledDuration>
               {secToMin(progress.value)} / {secToMin(progress.max)}
             </StyledDuration>
           )}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            flex: '3 3 200px',
-            overflow: 'hidden',
-          }}
-        >
+        </ControlsContainer>
+
+        <VideoInfoContainer>
           {currentVideoData && (
             <>
-              <Image
+              <ThumbnailsImage
                 src={currentVideoThumbnails}
                 alt="thumbnails"
-                width={'64'}
-                height={'36'}
-                style={{ margin: '0 10px' }}
-              ></Image>
-              <div style={{ flexDirection: 'column', display: 'flex' }}>
-                <Text
-                  strong
-                  style={{
-                    fontSize: '18px',
-                    textOverflow: 'ellipsis',
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {currentVideoData.title}
-                </Text>
+                width={64}
+                height={36}
+              />
+              <VideoInfoTextContainer>
+                <VideoTitle strong>{currentVideoData.title}</VideoTitle>
                 <Text> {currentVideoData.author}</Text>
-              </div>
+              </VideoInfoTextContainer>
             </>
           )}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flex: '0 1 10px',
-            justifyContent: 'center',
-          }}
-        >
+        </VideoInfoContainer>
+
+        <ControlButtonsContainer>
           <StyledButton
             type="text"
             onClick={() => setRepeatOne(true)}
@@ -368,6 +308,7 @@ const MusicPlayer: React.FC<any> = () => {
           >
             <TbRepeatOnce />
           </StyledButton>
+
           {isRepeat ? (
             <StyledButton type="text" onClick={() => setRepeat(false)}>
               <TbRepeat />
@@ -377,6 +318,7 @@ const MusicPlayer: React.FC<any> = () => {
               <TbRepeatOff />
             </StyledButton>
           )}
+
           <StyledButton
             type="text"
             onClick={() => setShuffle(!isShuffle)}
@@ -384,18 +326,18 @@ const MusicPlayer: React.FC<any> = () => {
           >
             <TbArrowsShuffle />
           </StyledButton>
-          <Slider
+
+          <StyledVolumeSlider
             min={0}
             max={100}
             defaultValue={100}
             onChange={(value) => player.setVolume(value)}
-            style={{ width: '100px', marginRight: '25px' }}
             tooltip={{
               open: false,
             }}
-          ></Slider>
-        </div>
-      </div>
+          ></StyledVolumeSlider>
+        </ControlButtonsContainer>
+      </Container>
 
       <YouTube
         opts={opts}

@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from 'react';
-import { Row, Col, Layout, Typography } from 'antd';
+import { Row, Col, Layout } from 'antd';
 import { ListResponse } from '@/interface/list';
 import SearchBar from '@/components/SearchBar';
 import PartyPlaylist from '@/components/PartyPlaylist';
@@ -34,7 +34,10 @@ export default function Home() {
           >
             <Head>
               <title>Yarty - Party Playlist</title>
-              <meta name="description" content="YouTube playlists mixer for party"></meta>
+              <meta
+                name="description"
+                content="YouTube playlists mixer for party"
+              ></meta>
             </Head>
             <div
               style={{

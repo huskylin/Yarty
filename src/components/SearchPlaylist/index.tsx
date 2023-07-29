@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { Button, Card, InputNumber, Typography } from 'antd';
-import useListData from './common/useListData';
-import List from './common/List';
-const { Text } = Typography;
+import useListData from '../common/useListData';
+import List from '../common/List';
+import {
+  Container,
+  StyledButton,
+  StyledCard,
+  StyledCardTitle,
+  StyledInputNumber,
+  StyledMediumText,
+  StyledSmallText,
+} from './style';
 
 const SearchPlaylist: React.FC<any> = ({ dispatch, playlistRaw }) => {
   const { playlist, playlistKey, randomPlaylist, randomPlaylistKey } =
@@ -28,48 +35,47 @@ const SearchPlaylist: React.FC<any> = ({ dispatch, playlistRaw }) => {
     if (playlistRaw?.items?.items?.length ?? false) {
       return (
         <>
-          <Text style={{ fontSize: '21px' }}>
+          <StyledMediumText>
             {playlistRaw.listName.items[0].snippet.title}
             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <Text type={'secondary'} style={{ fontSize: '16px' }}>
+            <StyledSmallText type={'secondary'} style={{ fontSize: '16px' }}>
               {playlistRaw.listName.items[0].snippet.channelTitle}
-            </Text>
-          </Text>
+            </StyledSmallText>
+          </StyledMediumText>
         </>
       );
     }
-    return <Text style={{ fontSize: '21px' }}>請輸入播放清單</Text>;
+    return <StyledMediumText>請輸入播放清單</StyledMediumText>;
   };
   return (
-    <Card
-      title={cardTitle()}
+    <StyledCard
+      title={<StyledCardTitle>{cardTitle()}</StyledCardTitle>}
       bordered={false}
       extra={
-        <div style={{ display: 'flex' }}>
-          <InputNumber
+        <Container>
+          <StyledInputNumber
             min={1}
             max={20}
             defaultValue={5}
-            onChange={(value: number | null) => {
+            controls={true}
+            onChange={(value) => {
               if (value) {
-                setRandomNumber(value);
+                setRandomNumber(value as number);
               }
             }}
-            style={{ width: '64px' }}
           />
-          <Button onClick={() => addRandomPartyList()}>隨機</Button>
-          <Button onClick={() => addAllPartyList()}>全部</Button>
-        </div>
+          <StyledButton onClick={() => addRandomPartyList()}>隨機</StyledButton>
+          <StyledButton onClick={() => addAllPartyList()}>全部</StyledButton>
+        </Container>
       }
       bodyStyle={{ overflow: 'auto' }}
-      style={{ height: '100%' }}
     >
       <List
         data={playlist || []}
         key={playlistKey + 's'}
         from={'single'}
       ></List>
-    </Card>
+    </StyledCard>
   );
 };
 

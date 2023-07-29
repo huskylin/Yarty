@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Input } from 'antd';
 import { useQuery } from 'react-query';
 import { ListResponse } from '@/interface/list';
-import { useRecommendations } from './common/useRecommendations';
+import { useRecommendations } from '../common/useRecommendations';
+import { SearchInput } from './style';
 
-const { Search } = Input;
 const apiPath = process.env.API_PATH;
 
 const fetchPlaylist = async (playlistId: string) => {
@@ -20,7 +19,9 @@ const fetchPlaylist = async (playlistId: string) => {
   }
 };
 
-const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
+const SearchBar: React.FC<{ setPlaylistRaw: (data: ListResponse) => void }> = ({
+  setPlaylistRaw,
+}) => {
   const [playlistId, setPlaylistId] = useState('');
   const [isValid, setIsValid] = useState(true);
   const recommendations = useRecommendations();
@@ -43,7 +44,7 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
       },
     }
   );
-  const onSearch = (playlistIdRaw: string) => {
+  const onSearch = (playlistIdRaw: string): void => {
     if (!playlistIdRaw) return;
     // is playlist
     const id = playlistIdRaw.match(/(list=)+([a-zA-Z0-9_-]+)/) as string[];
@@ -52,13 +53,13 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
       return;
     }
     // is video
-    (/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|live\/|v\/)?)([\w\-]+)(\S+)?$/)
+    /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|live\/|v\/)?)([\w\-]+)(\S+)?$/;
     setIsValid(true);
     setPlaylistId(id[2]);
     refetch();
   };
   return (
-    <Search
+    <SearchInput
       defaultValue={`https://www.youtube.com/playlist?list=${
         recommendations[Math.floor(Math.random() * recommendations.length)]
       }`}
@@ -67,7 +68,6 @@ const SearchBar: React.FC<any> = ({ setPlaylistRaw }) => {
       loading={isLoading}
       size="large"
       status={isValid ? '' : 'error'}
-      style={{ flex: '0 1 728px' }}
     />
   );
 };

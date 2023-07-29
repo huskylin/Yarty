@@ -1,11 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { Button, Card, Typography } from 'antd';
-import List from '@/components/common/List';
 import { partyListContext } from '@/context/partyListContext';
 import { useEffectOnce, useLocalStorage } from 'usehooks-ts';
 import { ListColumn } from '@/interface/list';
-
-const { Text } = Typography;
+import { CardTitle, ClearButton, StyledCard, StyledList } from './style';
 
 const PartyPlayList: React.FC<any> = ({ dispatch }) => {
   const { playlist, playlistKey } = useContext(partyListContext);
@@ -28,15 +25,14 @@ const PartyPlayList: React.FC<any> = ({ dispatch }) => {
     dispatch({ type: 'reset' });
   };
   return (
-    <Card
-      title={<Text style={{ fontSize: '21px' }}>已加入歌曲</Text>}
+    <StyledCard
+      title={<CardTitle>已加入歌曲</CardTitle>}
       bordered={false}
       bodyStyle={{ overflow: 'auto' }}
-      extra={<Button onClick={() => resetPartyList()}>清除</Button>}
-      style={{ height: '100%' }}
+      extra={<ClearButton onClick={() => resetPartyList()}>清除</ClearButton>}
     >
-      <List data={playlist} key={playlistKey} from={'party'}></List>
-    </Card>
+      <StyledList data={playlist} key={playlistKey} from={'party'} />
+    </StyledCard>
   );
 };
 

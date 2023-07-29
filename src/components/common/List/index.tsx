@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { MenuOutlined } from '@ant-design/icons';
-import type { DragEndEvent } from '@dnd-kit/core';
 import { DndContext } from '@dnd-kit/core';
 import {
   arrayMove,
@@ -9,17 +8,19 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Table, Typography, Grid } from 'antd';
-import type { ColumnsType, TableProps } from 'antd/es/table';
-import Image from 'next/image';
+import { Grid } from 'antd';
 import { ListColumn } from '@/interface/list';
-import styled from 'styled-components';
+import type { DragEndEvent } from '@dnd-kit/core';
+import type { ColumnsType } from 'antd/es/table';
+import {
+  StyledImage,
+  StyledTable,
+  StyledText,
+  StyledTitle,
+  TitleContainer,
+} from './style';
 
-const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
-interface RowProps extends React.HTMLAttributes<HTMLTableRowElement> {
-  'data-row-key': string;
-}
 
 const Row = ({ children, ...props }: RowProps) => {
   const {
@@ -63,54 +64,10 @@ const Row = ({ children, ...props }: RowProps) => {
   );
 };
 
-interface Props {
-  data: any[];
-  from: string;
-}
-interface TitleProps {
-  lines?: string;
-}
-
-const TitleContainer = styled.div`
-  @media (max-width: ${({ theme }) => theme.mobile}) {
-    height: 40px;
-  }
-`;
-
-const StyledTitle = styled(Title)<TitleProps>`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: ${(props) => (props.lines ? props.lines : '2')};
-  -webkit-box-orient: vertical; /* 配合 -webkit-line-clamp 使用垂直排列 */
-`;
-
-const StyledText = styled(Text)<TitleProps>`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: ${(props) => (props.lines ? props.lines : '2')};
-  -webkit-box-orient: vertical; /* 配合 -webkit-line-clamp 使用垂直排列 */
-`;
-
-const StyledTable = styled(Table)<any>`
-  tbody {
-    tr {
-      td {
-        padding: 8px !important;
-      }
-    }
-  }
-`;
-
-const List: React.FC<Props> = ({ data, from }) => {
+const List: React.FC<Props> = ({ data }) => {
   const [dataSource, setDataSource] = useState(data);
   const screens = useBreakpoint();
   const columns: ColumnsType<ListColumn> = [
-    // {
-    //   key: 'sort',
-    //   width: 20,
-    // },
     {
       title: 'Thumbnails',
       dataIndex: 'thumbnails',
@@ -124,13 +81,12 @@ const List: React.FC<Props> = ({ data, from }) => {
           height = 115;
         }
         return (
-          <Image
+          <StyledImage
             src={record.thumbnails}
             alt="thumbnails"
             width={width}
             height={height}
-            style={{ borderRadius: '8px', objectFit: 'cover' }}
-          ></Image>
+          ></StyledImage>
         );
       },
       responsive: ['sm'],
@@ -139,13 +95,12 @@ const List: React.FC<Props> = ({ data, from }) => {
       title: 'Thumbnails',
       dataIndex: 'thumbnails',
       render: (text, record, index) => (
-        <Image
+        <StyledImage
           src={record.thumbnails}
           alt="thumbnails"
           width={112}
           height={63}
-          style={{ borderRadius: '4px', objectFit: 'cover' }}
-        ></Image>
+        ></StyledImage>
       ),
       responsive: ['xs'],
     },
@@ -156,7 +111,7 @@ const List: React.FC<Props> = ({ data, from }) => {
         if (screens.xs) {
           return (
             <TitleContainer>
-              <StyledTitle level={5} style={{ margin: 0 }} lines={'3'}>
+              <StyledTitle level={5} lines={'3'}>
                 {text}
               </StyledTitle>
               <StyledText lines={'1'}>
@@ -168,7 +123,7 @@ const List: React.FC<Props> = ({ data, from }) => {
         if (screens.sm && !screens.xl) {
           return (
             <TitleContainer>
-              <StyledTitle level={4} style={{ margin: 0 }} lines={'2'}>
+              <StyledTitle level={4} lines={'2'}>
                 {text}
               </StyledTitle>
               <StyledText lines={'1'}>
@@ -179,7 +134,7 @@ const List: React.FC<Props> = ({ data, from }) => {
         } else {
           return (
             <TitleContainer>
-              <StyledTitle level={3} style={{ margin: 0 }} lines={'2'}>
+              <StyledTitle level={3} lines={'2'}>
                 {text}
               </StyledTitle>
               <StyledText lines={'1'}>
