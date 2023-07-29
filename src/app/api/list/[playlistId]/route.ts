@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 const apiPath = process.env.API_PATH;
 
+export const runtime = 'edge';
 
 export async function GET(_: any, { params }: { params: { playlistId: string } }) {
     const playlistId = params.playlistId
