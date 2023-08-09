@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
-
+  console.log(GA_MEASUREMENT_ID);
   return (
     <>
       <SessionProvider session={pageProps.session}>
@@ -39,18 +39,18 @@ export default function App({ Component, pageProps }: AppProps) {
           >
             <ThemeProvider>
               <Script
-                strategy="lazyOnload"
+                strategy="afterInteractive"
                 src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
               ></Script>
               <Script
                 id="google-analytics"
-                strategy="lazyOnload"
+                strategy="afterInteractive"
                 dangerouslySetInnerHTML={{
                   __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', ${GA_MEASUREMENT_ID}, {
+          gtag('config', '${GA_MEASUREMENT_ID}', {
             page_path: window.location.pathname,
           });
         `,
