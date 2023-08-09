@@ -3,6 +3,7 @@ export interface ListColumn {
     title: string;
     thumbnails: string;
     videoOwnerChannelTitle: string;
+    videoId: string
 }
 
 export interface ListResponse {
@@ -156,4 +157,15 @@ export interface Maxres2 {
 export interface Localized {
     title: string
     description: string
+}
+export interface Session {
+    user: User
+    expires: string
+    accessToken: string
+}
+export interface User {
+    id: string
+    name: string
+    email: string
+    image: string
 }

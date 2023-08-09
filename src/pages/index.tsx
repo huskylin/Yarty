@@ -1,7 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import { Row, Col, Layout } from 'antd';
 import { ListResponse } from '@/interface/list';
-import SearchBar from '@/components/SearchBar';
 import PartyPlaylist from '@/components/PartyPlaylist';
 import MusicPlayer from '@/components/MusicPlayer';
 import {
@@ -10,8 +9,7 @@ import {
   reducer,
 } from '@/context/partyListContext';
 import SearchPlaylist from '@/components/SearchPlaylist';
-import Image from 'next/image';
-import Head from 'next/head';
+import PageHeader from '@/components/PageHeader';
 
 const { Header, Content } = Layout;
 export default function Home() {
@@ -22,44 +20,7 @@ export default function Home() {
     <>
       <partyListContext.Provider value={partyList}>
         <Layout style={{ height: '100vh' }}>
-          <Header
-            style={{
-              position: 'sticky',
-              top: 0,
-              zIndex: 1,
-              width: '100%',
-              backgroundColor: '#ffffff',
-              padding: '16px',
-            }}
-          >
-            <Head>
-              <title>Yarty - Party Playlist</title>
-              <meta
-                name="description"
-                content="YouTube playlists mixer for party"
-              ></meta>
-            </Head>
-            <div
-              style={{
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <span style={{ display: 'flex' }}>
-                <Image
-                  src={'/YartyLogo2.png'}
-                  alt="logo"
-                  width={'117'}
-                  height={'45'}
-                  style={{ marginRight: '16px' }}
-                ></Image>
-              </span>
-              <SearchBar setPlaylistRaw={setPlaylistRaw}></SearchBar>
-              <div style={{ width: '0 2 225px' }}></div>
-            </div>
-          </Header>
+          <PageHeader setPlaylistRaw={setPlaylistRaw}></PageHeader>
           <Content style={{ overflow: 'auto' }}>
             <Row style={{ height: '100%', flexWrap: 'wrap' }}>
               <Col xs={24} sm={12} style={{ padding: 10, flex: '0 0 100%' }}>

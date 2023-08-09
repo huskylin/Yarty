@@ -2,23 +2,14 @@ import styled from 'styled-components';
 import { Button, Slider, Typography } from 'antd';
 import Image from 'next/image';
 import devices from '@/utils/devices';
+import { StyledButton as Btn, StyledBigButton as BigBtn } from '@/styles/global';
+
 
 const { Text } = Typography;
 
-export const StyledButton = styled(Button) <ButtonProps>`
-  font-size: ${(props) => props.theme.fontSizes.small};
-  color: ${(props) =>
-        String(props.isactive).toLowerCase() === 'true'
-            ? props.theme.antd.colorPrimary
-            : 'inherit'};
-`;
+export const StyledButton = Btn;
 
-export const StyledBigButton = styled(Button)`
-  display: flex;
-  align-content: center;
-  font-size: ${(props) => props.theme.fontSizes.extraLarge};
-  height: auto;
-`;
+export const StyledBigButton = BigBtn;
 
 export const StyledSlider = styled(Slider)`
   width: 100vw;

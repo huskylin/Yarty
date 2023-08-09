@@ -3,21 +3,7 @@ import { useQuery } from 'react-query';
 import { ListResponse } from '@/interface/list';
 import { useRecommendations } from '../common/useRecommendations';
 import { SearchInput } from './style';
-
-const apiPath = process.env.API_PATH;
-
-const fetchPlaylist = async (playlistId: string) => {
-  try {
-    const res = await fetch(`${apiPath}/api/list/${playlistId}`);
-    if (!res.ok) {
-      throw new Error('Failed to fetch playlist');
-    }
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-};
+import { fetchPlaylist } from '@/utils/fetch';
 
 const SearchBar: React.FC<{ setPlaylistRaw: (data: ListResponse) => void }> = ({
   setPlaylistRaw,

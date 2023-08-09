@@ -4,20 +4,24 @@ import { YouTubeVideosResponse } from '@/interface/Videos';
 
 const apiPath = process.env.API_PATH;
 
+const fetchRegion = async () => {
+  try {
+    const res = await fetch(`${apiPath}/api/region`);
+    const data = await res.json();
+    return data.countryCode;
+  } catch (error) {
+    return navigator.language.split('-')[1];
+  }
+};
+
 export const useRegion = () => {
   const [region, setRegion] = useState('TW');
 
-  const fetchRegion = async () => {
-    try {
-      const res = await fetch(`${apiPath}/api/region`);
-      const data = await res.json();
-      setRegion(data.countryCode);
-    } catch (error) {
-      setRegion(navigator.language.split('-')[1]);
-    }
-  };
-
-  useQuery('region', fetchRegion);
+  useQuery('region', fetchRegion, {
+    onSuccess: (data: string) => {
+      setRegion(data);
+    },
+  });
 
   return region;
 };
@@ -30,9 +34,7 @@ export const useRegionRestriction = (videoIds: string[]) => {
 
     const videoIdsParam = videoIds.join(',');
 
-    const res = await fetch(
-      `${apiPath}/api/videos/${videoIdsParam}`
-    );
+    const res = await fetch(`${apiPath}/api/videos/${videoIdsParam}`);
     const data: YouTubeVideosResponse = await res.json();
 
     const restricted = data.items.map((item) => {

@@ -41,7 +41,7 @@ const Row = ({ children, ...props }: RowProps) => {
       transform && { ...transform, scaleY: 1 }
     )?.replace(/translate3d\(([^,]+),/, 'translate3d(0,'),
     transition,
-    ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
+    ...(isDragging ? { position: 'relative', zIndex: 2 } : {}),
   };
 
   return (

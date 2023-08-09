@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import { Card, InputNumber, Button, Typography } from 'antd';
-
-const { Text } = Typography;
+import { Card, InputNumber, Button } from 'antd';
 
 export const StyledCardTitle = styled.div`
   font-size: ${(props) => props.theme.fontSizes.medium};
@@ -21,13 +19,4 @@ export const Container = styled.div`
 
 export const StyledCard = styled(Card)`
   height: 100%
-`;
-
-
-export const StyledMediumText = styled(Text)`
-  font-size: ${(props) => props.theme.fontSizes.medium};
-`;
-
-export const StyledSmallText = styled(Text)`
-  font-size: ${(props) => props.theme.fontSizes.small};
 `;

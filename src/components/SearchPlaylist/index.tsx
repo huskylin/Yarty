@@ -7,9 +7,8 @@ import {
   StyledCard,
   StyledCardTitle,
   StyledInputNumber,
-  StyledMediumText,
-  StyledSmallText,
 } from './style';
+import CardTitle from '../common/CardTitle';
 
 const SearchPlaylist: React.FC<any> = ({ dispatch, playlistRaw }) => {
   const { playlist, playlistKey, randomPlaylist, randomPlaylistKey } =
@@ -31,25 +30,14 @@ const SearchPlaylist: React.FC<any> = ({ dispatch, playlistRaw }) => {
       },
     });
   };
-  const cardTitle = () => {
-    if (playlistRaw?.items?.items?.length ?? false) {
-      return (
-        <>
-          <StyledMediumText>
-            {playlistRaw.listName.items[0].snippet.title}
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <StyledSmallText type={'secondary'} style={{ fontSize: '16px' }}>
-              {playlistRaw.listName.items[0].snippet.channelTitle}
-            </StyledSmallText>
-          </StyledMediumText>
-        </>
-      );
-    }
-    return <StyledMediumText>請輸入播放清單</StyledMediumText>;
-  };
+
   return (
     <StyledCard
-      title={<StyledCardTitle>{cardTitle()}</StyledCardTitle>}
+      title={
+        <StyledCardTitle>
+          <CardTitle playlistRaw={playlistRaw}></CardTitle>
+        </StyledCardTitle>
+      }
       bordered={false}
       extra={
         <Container>
