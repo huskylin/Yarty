@@ -1,6 +1,5 @@
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
-const queryClient = new QueryClient();
 import ThemeProvider from '@/styles/theme-provider';
 import { ConfigProvider } from 'antd';
 import { Analytics } from '@vercel/analytics/react';
@@ -10,6 +9,8 @@ import { useEffect } from 'react';
 import * as gtag from '../utils/gtag';
 import Script from 'next/script';
 import '@/styles/globals.css';
+
+const queryClient = new QueryClient();
 const GA_MEASUREMENT_ID = process.env.GA_MEASUREMENT_ID;
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -25,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
-  console.log(GA_MEASUREMENT_ID);
+
   return (
     <>
       <SessionProvider session={pageProps.session}>

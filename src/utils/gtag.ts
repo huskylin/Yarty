@@ -1,7 +1,6 @@
 export const GA_MEASUREMENT_ID = process.env.GA_MEASUREMENT_ID;
 
 export const pageview = (url: any) => {
-
   (window as any).gtag('config', GA_MEASUREMENT_ID, {
     page_path: url,
   });
