@@ -9,7 +9,7 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
 };
 
-const CreateListForm: React.FC<any> = ({ onCreated, isLoading }) => {
+const CreateListForm: React.FC<any> = ({ onCreated }) => {
   const { data: session } = useSession() as { data: Session | null };
   const [title, setTitle] = useState('Yarty Playlist');
   const [descrietion, setDescrietion] = useState(

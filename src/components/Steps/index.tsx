@@ -88,27 +88,27 @@ const App: React.FC<{
     load: null,
   });
 
-  const { refetch, isLoading } = useQuery(
-    ['createdPlayListId', playlistId],
-    async () => {
-      if (playlistId) {
-        return fetchPlaylist(playlistId);
-      } else {
-        return Promise.resolve();
-      }
-    },
-    {
-      refetchOnWindowFocus: false,
-      enabled: !!playlistId,
-      onSuccess: (data: ListResponse) => {
-        if (data?.listName?.items?.length > 0) {
-          setPlaylistRaw(data);
-        } else {
-          refetch();
-        }
-      },
-    }
-  );
+  // const { refetch, isLoading } = useQuery(
+  //   ['createdPlayListId', playlistId],
+  //   async () => {
+  //     if (playlistId) {
+  //       return fetchPlaylist(playlistId);
+  //     } else {
+  //       return Promise.resolve();
+  //     }
+  //   },
+  //   {
+  //     refetchOnWindowFocus: false,
+  //     enabled: !!playlistId,
+  //     onSuccess: (data: ListResponse) => {
+  //       if (data?.listName?.items?.length > 0) {
+  //         setPlaylistRaw(data);
+  //       } else {
+  //         refetch();
+  //       }
+  //     },
+  //   }
+  // );
 
   const prev = () => {
     setCurrent(current - 1);
@@ -164,24 +164,24 @@ const App: React.FC<{
   useEffect(() => {
     const stepObj = [
       {
-        title: '新建清單或選擇已有清單',
+        title: '新建清單',
         content: step1(create, load),
       },
       {
-        title: mode === 'create' ? '新增播放清單' : '讀取播放清單',
-        content: mode === 'create' ? step2Create(onCreated) : step2Load(),
+        title: '新增播放清單',
+        content: step2Create(onCreated),
       },
-      {
-        title: '確認當前清單',
-        content: (
-          <Step3
-            playlistRaw={playlistRaw}
-            playlist={playlist}
-            playlistKey={playlistKey}
-            onUpdated={onUpDated}
-          ></Step3>
-        ),
-      },
+      // {
+      //   title: '確認當前清單',
+      //   content: (
+      //     <Step3
+      //       playlistRaw={playlistRaw}
+      //       playlist={playlist}
+      //       playlistKey={playlistKey}
+      //       onUpdated={onUpDated}
+      //     ></Step3>
+      //   ),
+      // },
     ];
     setSteps(stepObj);
   }, [mode, playlist, playlistKey, playlistRaw, create, load, onCreated]);
